@@ -1,17 +1,16 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
 import PageNotFound from './pages/PageNotFound'
-
-
+import HomeScreen from './Screens/HomeScreen'
 import './index.css'
+import ProductScreen from './Screens/ProductScreen'
 
 function App() {
   return (
     <div>
-    
       <Routes>
-        <Route path='/' element={<Home/> } />
+        <Route path='/' element={<HomeScreen/> } />
+        <Route path=':id' element={<ProductScreen/>} />
         <Route path='*' element={<PageNotFound/> } />
       </Routes>
      

@@ -1,9 +1,11 @@
 import React from 'react'
 
 function Footer() {
+  let now = new Date()
+  
   return (
      <footer className='footer-div'>
-     This Is Footer
+      E-Store &copy; Copy Right {now.getFullYear()}
     </footer>
   )
 }
