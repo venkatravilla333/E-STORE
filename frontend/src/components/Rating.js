@@ -8,7 +8,7 @@ function Rating({value, text}) {
       <span className='text-warning'>{value >=3 ? <FaStar/> : value >=2.5 ? <FaStarHalfAlt/> : <FaRegStar/> }</span>
       <span className='text-warning'>{value >=4 ? <FaStar/> : value >=3.5 ? <FaStarHalfAlt/> : <FaRegStar/> }</span>
       <span className='text-warning'>{value >=5 ? <FaStar/> : value >=4.5 ? <FaStarHalfAlt/> : <FaRegStar/> }</span>
-      <span className='mx-3'>{`${text && text} Reviews`}</span>
+      <span className='mx-1'>{`${text && text} Reviews`}</span>
     </div>
   )
 }
