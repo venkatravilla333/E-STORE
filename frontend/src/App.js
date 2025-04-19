@@ -1,22 +1,16 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import PageNotFound from './Screens/PageNotFound'
+
+import { Routes, Route } from 'react-router-dom'
 import HomeScreen from './Screens/HomeScreen'
-import './index.css'
-// import ProductScreen from './Screens/ProductScreen'
 import ProductDetails from './Screens/ProductDetails'
-// import ProductScreen from './Screens/ProductScreen'
+import PageNotFound from './Screens/PageNotFound'
 
 function App() {
   return (
-    <div>
-      <Routes>
-        <Route path='/' element={<HomeScreen/> } />
-        <Route path='*' element={<PageNotFound/> } />
-        <Route path='/product/:id' element={<ProductDetails/> } />
-      </Routes>
-     
-    </div>
+    <Routes>
+      <Route path='/' element={<HomeScreen />} />
+      <Route path='/product/:id' element={<ProductDetails />} />
+      <Route path='*' element={<PageNotFound />} />
+    </Routes>
   )
 }
 

@@ -5,16 +5,16 @@ import Footer from '../components/Footer'
 import Product from '../components/Product'
 import axios from 'axios'
 
+
 function HomeScreen() {
 
   let [products, setProducts] = useState([])
   
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products')
+    axios.get('/api/products')
       .then((res) => {
         setProducts(res.data)
       })
-      
   }, [])
   return (
     <div>

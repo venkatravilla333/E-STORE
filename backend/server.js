@@ -1,35 +1,32 @@
 // const express = require('express')
+import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
-// const mongoose = require('mongoose')
-
-
-// require('dotenv').config()
 import dotenv from 'dotenv'
-import products from './data.js'
-
+import productRoutes from './routes/productRoutes.js'
 dotenv.config()
+let app = express()
+import dbCon from './config/db.js'
+import Productmodal from './models/productModel.js'
 
-let App = express()
+dbCon()
+app.use(cors())
+app.use(express.json())
 
-App.use(cors())
+app.use('/api', productRoutes);
 
-// var dbURL = process.env.dbURL
 
-// mongoose.connect(dbURL)
-//   .then(() => {
-//   console.log('db connected successfully')
-//   }).catch((err) => {
-//    console.log('Error while conecting with DB', err)
-// })
 
-App.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello server')
 })
 
-App.get('/api/products', (req, res) => {
-  res.json(products)
-})
+
+
+// App.get('/api/products', async(req, res) => {
+//  let products = await Productmodal.find()
+//   res.json(products)
+// })
 
 // App.get('/api/products/:id', (req, res) => {
 //   let product = products.find((product) => {
@@ -40,7 +37,7 @@ App.get('/api/products', (req, res) => {
 
 var PORT = process.env.PORT || 5500
 
-App.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log('Server started in port 5000')
 })
 
