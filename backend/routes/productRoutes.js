@@ -2,13 +2,13 @@
 import express from 'express'
 const router = express.Router();
 
-import { createProduct, getProducts, getProduct } from '../controllers/productController.js'
+import { createProduct, getAllProducts, getSingleProduct } from '../controllers/productController.js'
 
 
 
-router.route('/admin/product').post(createProduct);
-router.route('/getproducts').get(getProducts);
-router.route('/getproduct/:id').get(getProduct);
+router.route('/admin/createProduct').post(createProduct);
+router.route('/getAllProducts').get(getAllProducts);
+router.route('/getSingleProduct/:id').get(getSingleProduct);
 
  
 

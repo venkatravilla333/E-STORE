@@ -76,13 +76,13 @@ export let createProduct = async (req, res) => {
 }
 
 
-export let getProducts = async(req, res) => {
+export let getAllProducts = async(req, res) => {
   let products = await Productmodel.find({})
   console.log(products)
   return res.status(200).json(products)
 }
 
-export let getProduct = async (req, res) => {
+export let getSingleProduct = async (req, res) => {
   console.log(req.params)
   let product = await Productmodel.findById(req.params.id)
   console.log(product)
