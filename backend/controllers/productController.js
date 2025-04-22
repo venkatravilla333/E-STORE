@@ -83,7 +83,8 @@ export let getAllProducts = async(req, res) => {
 }
 
 export let getSingleProduct = async (req, res) => {
-  console.log(req.params)
+  console.log(req.params.id)
+  
   let product = await Productmodel.findById(req.params.id)
   console.log(product)
   return res.status(200).json(product)

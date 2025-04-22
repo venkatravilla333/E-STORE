@@ -15,7 +15,7 @@ function HomeScreen() {
   // let [products, setProducts] = useState([])
   // let [error, setError] = useState(null)
  let data = useSelector((state) => {
-    return state.getAllProducts
+    return state.productsReducer
   })
   let dispatch = useDispatch()
   useEffect(() => {
