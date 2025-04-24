@@ -34,7 +34,7 @@ function HomeScreen() {
   }, [])
   return (
     <div>
-      <Header />
+      
       <main className='container'>
         <div className='row'>
           {

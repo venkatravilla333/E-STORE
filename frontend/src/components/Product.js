@@ -1,6 +1,7 @@
 import React from 'react';
 import Rating from './Rating';
 import { Link } from 'react-router-dom';
+import '../index.css'
 
 function Product({ product }) {
   console.log(product)
@@ -16,14 +17,7 @@ function Product({ product }) {
           </Link>
         <h6 class='card-title mt-2'> Price: {product.price}</h6>
         <Rating value={product.rating} text={product.numOfReviews} />
-        <div className='mt-3 d-flex justify-content-between'>
-        <a href='#' class='btn btn-sm btn-primary px-2' >
-          Add to cart
-        </a>
-        <a href='#' class='btn btn-sm btn-primary px-3'>
-          Buy now
-        </a>
-        </div>
+        
       </div>
     </div>
   );

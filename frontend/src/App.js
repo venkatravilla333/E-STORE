@@ -5,10 +5,12 @@ import PageNotFound from './Screens/PageNotFound';
 import { store } from './redux/store';
 import React from 'react';
 import {Provider} from 'react-redux'
+import Header from './components/Header';
 
 function App() {
   return (
-     <Provider store={store}>
+    <Provider store={store}>
+      <Header />
        <Routes>
          <Route path='/' element={<HomeScreen />} />
          <Route path='/product/:id' element={<ProductDetails />} />
