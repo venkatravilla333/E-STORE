@@ -21,7 +21,7 @@ function ProductDetails() {
 
   const handleAddToCart = () => {
     dispatch(addToCart({ ...data.product, qty }));
-    navigate('/cart')
+    // navigate('/cart')
 
   };
 
@@ -59,7 +59,7 @@ function ProductDetails() {
               {data.product.countInStock > 0 && (
                 <div className='mt-4 d-flex justify-content-around align-items-center'>
                   <button
-                    className='btn btn-primary px-4'
+                    className='btn btn-primary px-2'
                     onClick={handleAddToCart}
                   >
                     Add to cart
@@ -77,7 +77,7 @@ function ProductDetails() {
                     ))}
                   </select>
 
-                  <button className='btn btn-primary px-4'>Buy now</button>
+                  <button className='btn btn-primary px-2'>Buy now</button>
                 </div>
               )}
             </div>

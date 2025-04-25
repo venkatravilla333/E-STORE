@@ -4,8 +4,11 @@ import {createSlice} from '@reduxjs/toolkit'
 
 
 let initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {
-  cartItems: []
-  
+  cartItems: [],
+  itemsPrice: 0,
+  shippingPrice: 0,
+  taxPrice: 0,
+  totalPrice: 0
 }
 
 let cartSlice = createSlice({
@@ -28,6 +31,7 @@ let cartSlice = createSlice({
       }, 0);
       
       state.shippingPrice = Number(state.itemsPrice < 100 ? 0 : 30);
+
       state.taxPrice = Number(state.itemsPrice * 0.1)
 
       state.totalPrice = Number(
