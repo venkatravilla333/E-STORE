@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
-import { addToCart } from '../redux/slices/cartSlice';
+import { addToCart, removeFromCart } from '../redux/slices/cartSlice';
 
 function CartScreen() {
  let dispatch =  useDispatch()
@@ -13,6 +13,10 @@ function CartScreen() {
 
   let addToCartHandler = (product, qty) => {
     dispatch(addToCart({...product, qty}))
+  }
+
+  let removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id))
   }
 
   return (
@@ -53,7 +57,7 @@ function CartScreen() {
                       </select>
                     </li>
                     <li class='list-group-item col-md-2 d-flex justify-content-center align-items-center'>
-                      <button className='border border-none'>
+                      <button className='border border-none' onClick={()=>removeFromCartHandler(item._id)}>
                         <FaTrash />
                       </button>
                     </li>

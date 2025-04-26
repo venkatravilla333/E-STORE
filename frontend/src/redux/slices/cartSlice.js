@@ -1,5 +1,6 @@
 
 import {createSlice} from '@reduxjs/toolkit'
+import { updateCart } from '../../Utils/cartUtils';
 
 
 
@@ -26,21 +27,17 @@ let cartSlice = createSlice({
       } else {
         state.cartItems = [...state.cartItems, item]
       };
-      state.itemsPrice = state.cartItems.reduce((acc, item) => {
-        return acc + (item.price * item.qty)
-      }, 0);
-      
-      state.shippingPrice = Number(state.itemsPrice < 100 ? 0 : 30);
-
-      state.taxPrice = Number(state.itemsPrice * 0.1)
-
-      state.totalPrice = Number(
-        (state.itemsPrice) + (state.shippingPrice) + (state.taxPrice)
-      )
-      localStorage.setItem('cart', JSON.stringify(state));
+     return updateCart(state)
+    },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter((x) => {
+        return x._id !== action.payload
+      })
+       return updateCart(state)
     }
+     
   }
 })
- export let {addToCart} = cartSlice.actions
+ export let {addToCart, removeFromCart} = cartSlice.actions
 
 export default cartSlice.reducer

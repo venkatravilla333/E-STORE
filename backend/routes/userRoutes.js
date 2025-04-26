@@ -1,5 +1,17 @@
-// router.route('/admin/product').post(createUser);
-// router.route('/admin/product').get(getAllProduct);
-// router.route('/admin/product').get(geSingleProduct);
-// router.route('/admin/product').put(updateProduct);
-// router.route('/admin/product').delete(deleteProduct);
+
+import {loginUser, registerUser, logoutUser, getUserProfile, updateUserProfile, getUsers, getUser, updateUser, deleteUser} from '../controllers/userController.js'
+
+
+router.route('/register').post(registerUser);
+router.route('/login').post(loginUser);
+router.route('/logout').post(logoutUser);
+router.route('/profile').get(getUserProfile);
+router.route('/profile').put(updateUserProfile);
+
+router.route('/getUsers').get(getUsers);
+router.route('/getUser/:id').get(getUser);
+router.route('/updateUser/:id').update(updateUser);
+router.route('/deleteUser/:id').delete(deleteUser);
+
+
+export default router
