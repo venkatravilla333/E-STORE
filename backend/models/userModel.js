@@ -1,8 +1,10 @@
 import mongoose from 'mongoose'
 
+import bcrypt from 'bcrypt'
+
 let userSchema = new mongoose.Schema({
   name: {
-    typs: String,
+    type: String,
     required: true
   }, 
   email: {
@@ -19,6 +21,18 @@ let userSchema = new mongoose.Schema({
     required: true,
     default: false
   }
+
 }, { timestamps: true })
 
-export let UserModel = mongoose.model('User', userSchema)
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next()
+  }
+  let salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
+
+} )
+
+let UserModel = mongoose.model('User', userSchema)
+
+export default UserModel
