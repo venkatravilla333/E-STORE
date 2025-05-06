@@ -1,61 +1,77 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import {Link} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../redux/slices/userApiSlice'; // adjust path if needed
 
 function Header() {
-  
- let cart = useSelector((state) => {
-     return state.cartReducer
- })
-  let {cartItems} = cart
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const { cartItems } = useSelector((state) => state.cartReducer);
+
+  const { user } = useSelector((state) => state.authReducer);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
   return (
     <header>
-      <div className=''>
-        
-        <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
-          <div class='container-fluid'>
-            <a class='navbar-brand' href='#'>
-             E-Store
-            </a>
-            <button
-              class='navbar-toggler'
-              type='button'
-              data-bs-toggle='collapse'
-              data-bs-target='#navbarNav'
-              aria-controls='navbarNav'
-              aria-expanded='false'
-              aria-label='Toggle navigation'
-            >
-              <span class='navbar-toggler-icon'></span>
-            </button>
-            <div class='collapse navbar-collapse' id='navbarNav'>
-              <ul class='navbar-nav ms-auto'>
-                <li class='nav-item'>
-                  <Link class='nav-link' aria-current='page' to='/cart'>
-                    Cart 
-                    {
-                      cartItems.length > 0 && (
-                        <span class="badge rounded-pill bg-primary">
-                          {
-                            cartItems.reduce((a, c) => {
-                              return a+ c.qty
-                            }, 0)
-                          }
-                        </span>
-                      )
-                    }
-                  </Link>
-                </li>
-                <li class='nav-item'>
-                  <a class='nav-link' href='#'>
-                    Signup
-                  </a>
-                </li>
-              </ul>
-            </div>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">E-Store</Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/cart">
+                  Cart
+                  {cartItems.length > 0 && (
+                    <span className="badge rounded-pill bg-primary ms-1">
+                      {cartItems.reduce((total, item) => total + item.qty, 0)}
+                    </span>
+                  )}
+                </Link>
+              </li>
+
+              {user ? (
+                <>
+                  <li className="nav-item">
+                    <span className="nav-link">{user.user.name}</span>
+                  </li>
+                  <li className="nav-item">
+                    <button className="btn btn-link nav-link" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">Login</Link>
+                  </li>
+                 
+                </>
+              )}
+
+            </ul>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
   );
 }

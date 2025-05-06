@@ -38,7 +38,7 @@ import Productmodel from "../models/productModel.js"
 
 
 export let createProduct = async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
    try {
     let {  name,
       description,

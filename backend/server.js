@@ -5,13 +5,22 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import cookieParser from 'cookie-parser'
 dotenv.config()
 let app = express()
 import dbCon from './config/db.js'
 
 dbCon()
-app.use(cors())
-app.use(express.json())
+const FRONTEND_ORIGIN = 'http://localhost:3000';
+
+app.use(cors({
+  origin: FRONTEND_ORIGIN, // do NOT use '*'
+  credentials: true,       // allow cookies to be sent
+}));
+
+app.use(express.json()) //body parsing
+
+app.use(cookieParser())
 
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);

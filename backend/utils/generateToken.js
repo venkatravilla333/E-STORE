@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 let generateToken = (res, userid) => {
-  let token =  jwt.sign({ userId: userid }, process.env.JWT_SECRETE, {
+  let token =  jwt.sign({ userId: userid }, process.env.JWT_SECRETE,  {
          expiresIn: '10d'
        })
       console.log('token', token)
@@ -13,4 +13,6 @@ let generateToken = (res, userid) => {
       })
 }
 
-export {generateToken}
+export { generateToken }
+
+

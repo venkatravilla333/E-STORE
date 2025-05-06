@@ -23,7 +23,7 @@ export let registerUser = async (req, res) => {
   })
 
    if (user) {
-       generateToken(res, user._id)
+      generateToken(res, user._id)
       res.status(201).json({
          user
       })
@@ -37,7 +37,7 @@ export let loginUser = async(req, res) => {
 
    let user = await UserModel.findOne({ email })
 
-   if (user && user.comparePassword(password)) {
+   if (user && await user.comparePassword(password)) {
        generateToken(res, user._id)
      return res.status(200).json({
          user
@@ -53,21 +53,57 @@ export let loginUser = async(req, res) => {
 
 // private
 
-// let logoutUser = async(req, res) => {
-//    return res.send('logout')
-// }
+export let logoutUser = async(req, res) => {
+   res.clearCookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'strict'
+   })
+   return res.status(200).json({
+      message: 'User logout suucessfully'
+   })
+}
 
 // private
 
-// let getUserProfile = async(req, res) => {
-//    return res.send('get user profile')
-// }
+export let getUserProfile = async(req, res) => {
+   let userProfile = await UserModel.findById(req.user._id)
+   console.log(userProfile)
+   if (userProfile) {
+      res.status(200).json({
+         userProfile
+      })
+   } else {
+      console.log('User not found')
+      res.status(404)
+      throw new Error('User not found')
+   }
+}
 
 // private
 
-// let updateUserProfile = async(req, res) => {
-//     return res.send('update user profile')
-// }
+export let updateUserProfile = async (req, res) => {
+   
+   let user = await UserModel.findById(req.user._id)
+    console.log(user)
+   if (user) {
+      user.name = req.body.name || user.name
+      user.email = req.body.email || user.email
+
+      if (req.body.password) {
+         user.password = req.body.password
+      }
+      let updateUser = await user.save()
+      res.status(200).send({
+         updateUser
+      }) 
+   } else {
+      res.status(404)
+      throw new Error('User not found')
+
+   }
+    
+}
 
 // private
 

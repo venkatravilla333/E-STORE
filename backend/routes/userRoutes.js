@@ -1,18 +1,20 @@
 import express from 'express'
-import { loginUser, registerUser } from '../controllers/userController.js';
-// import {loginUser, registerUser, logoutUser, getUserProfile, updateUserProfile, getUsers, getUser, updateUser, deleteUser} from '../controllers/userController.js'
+import { loginUser, registerUser, logoutUser, getUserProfile, updateUserProfile } from '../controllers/userController.js';
+import { protect } from '../middlewares/authMiddeware.js';
+
 
 const router = express.Router();
 
 
+//normal user routes
 
 router.route('/register').post(registerUser);
-router.route('/loginuser').post(loginUser);
+router.route('/login').post(loginUser);
+router.route('/logout').post(protect, logoutUser);
+router.route('/getProfile').get(protect, getUserProfile);
+router.route('/updateProfile').put(protect, updateUserProfile);
 
-// router.route('/login').post(loginUser);
-// router.route('/logout').post(logoutUser);
-// router.route('/profile').get(getUserProfile);
-// router.route('/profile').put(updateUserProfile);
+// admin routes
 
 // router.route('/getUsers').get(getUsers);
 // router.route('/getUser/:id').get(getUser);
