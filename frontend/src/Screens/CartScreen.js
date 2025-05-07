@@ -5,22 +5,26 @@ import { FaTrash } from 'react-icons/fa';
 import { addToCart, removeFromCart } from '../redux/slices/cartSlice';
 
 function CartScreen() {
- let dispatch =  useDispatch()
+  let dispatch = useDispatch();
   let cart = useSelector((state) => {
     return state.cartReducer;
   });
   let { cartItems } = cart;
 
   let addToCartHandler = (product, qty) => {
-    dispatch(addToCart({...product, qty}))
-  }
+    dispatch(addToCart({ ...product, qty }));
+  };
 
   let removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id))
-  }
+    dispatch(removeFromCart(id));
+  };
+
+  let proceedToCheckout = () => {
+    console.log('proceed');
+  };
 
   return (
-    <div className='container'>
+    <div className='container mt-5'>
       <div className='row my-3'>
         <div className='col-md-8'>
           <h4 className='my-4'>Shopping Cart Items</h4>
@@ -41,13 +45,20 @@ function CartScreen() {
                         height='100px'
                       />
                     </li>
-                    <li class='list-group-item col-md-3 d-flex justify-content-center align-items-center'>{item.name}</li>
-                    <li class='list-group-item col-md-2 d-flex justify-content-center align-items-center'>{item.price}</li>
+                    <li class='list-group-item col-md-3 d-flex justify-content-center align-items-center'>
+                      {item.name}
+                    </li>
+                    <li class='list-group-item col-md-2 d-flex justify-content-center align-items-center'>
+                      {item.price}
+                    </li>
                     <li class='list-group-item col-md-2  d-flex justify-content-center align-items-center'>
-                      <select class="form-select"
+                      <select
+                        class='form-select'
                         id='quantity'
                         value={item.qty}
-                        onChange={(e)=> addToCartHandler(item, Number(e.target.value))}
+                        onChange={(e) =>
+                          addToCartHandler(item, Number(e.target.value))
+                        }
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
                           <option key={x + 1} value={x + 1}>
@@ -57,7 +68,10 @@ function CartScreen() {
                       </select>
                     </li>
                     <li class='list-group-item col-md-2 d-flex justify-content-center align-items-center'>
-                      <button className='border border-none' onClick={()=>removeFromCartHandler(item._id)}>
+                      <button
+                        className='border border-none'
+                        onClick={() => removeFromCartHandler(item._id)}
+                      >
                         <FaTrash />
                       </button>
                     </li>
@@ -69,39 +83,32 @@ function CartScreen() {
         </div>
         <div className='col-md-4 mt-5'>
           <div class='list-group'>
-            <button
-              type='button'
-              class='list-group-item'
-              aria-current='true'
-            >
+            <button type='button' class='list-group-item' aria-current='true'>
               <h4>
-                Sub total: {
-                cartItems.reduce((acc, item) => {
-                  return acc + item.qty
-                }, 0)
-             } Items
-              </h4> 
+                Sub total:{' '}
+                {cartItems.reduce((acc, item) => {
+                  return acc + item.qty;
+                }, 0)}{' '}
+                Items
+              </h4>
             </button>
-            <button
-              type='button'
-              class='list-group-item '
-            >
+            <button type='button' class='list-group-item '>
               <h5>
-                Total :  {
-                cartItems.reduce((acc, item) => {
-                  return acc+ item.qty * item.price
-                }, 0)
-              }
-              </h5> 
+                Total :{' '}
+                {cartItems.reduce((acc, item) => {
+                  return acc + item.qty * item.price;
+                }, 0)}
+              </h5>
             </button>
-            <button
-              type='button'
-              class='list-group-item'
-              disabled
-            >
-              <button className='btn btn-primary py-2 px-3'>
-                Proceed To CheckOut
-              </button> 
+            <button type='button' class='list-group-item'  onClick={proceedToCheckout}>
+             
+                <Link to = '/shipping'
+                  className='btn btn-primary py-2 px-3'
+                  
+                >
+                  Proceed To CheckOut
+                </Link>
+              
             </button>
           </div>
         </div>

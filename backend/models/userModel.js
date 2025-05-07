@@ -1,42 +1,43 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 
-let userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  }, 
-  email: {
-    type: String,
-    required: true,
-    unique: true
+let userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
-  password: {
-    type: String,
-    required: true
-  },
-  isAdmin: {
-    type: Boolean,
-    required: true,
-    default: false
-  }
-
-}, { timestamps: true })
+  { timestamps: true }
+);
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password)
-}
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    next()
+    next();
   }
-  let salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
+  let salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
-} )
+let UserModel = mongoose.model('User', userSchema);
 
-let UserModel = mongoose.model('User', userSchema)
-
-export default UserModel
+export default UserModel;

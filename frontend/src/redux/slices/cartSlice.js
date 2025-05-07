@@ -6,6 +6,7 @@ import { updateCart } from '../../Utils/cartUtils';
 
 let initialState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {
   cartItems: [],
+  shippingAddress: {},
   itemsPrice: 0,
   shippingPrice: 0,
   taxPrice: 0,
@@ -34,10 +35,14 @@ let cartSlice = createSlice({
         return x._id !== action.payload
       })
        return updateCart(state)
+    },
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload
+      return updateCart(state)
     }
      
   }
 })
- export let {addToCart, removeFromCart} = cartSlice.actions
+ export let {addToCart, removeFromCart, saveShippingAddress} = cartSlice.actions
 
 export default cartSlice.reducer

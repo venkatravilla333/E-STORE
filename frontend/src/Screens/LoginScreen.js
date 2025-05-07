@@ -1,24 +1,29 @@
 // src/components/LoginForm.jsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { login } from '../redux/slices/userApiSlice';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+ let navigate = useNavigate()
+
+
   const dispatch = useDispatch();
-  // const { userInfo, loading, error } = useSelector((state) => state.auth)
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ email, password }));
+    navigate('/')
+   
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='container row mt-5 border border-2 w-50 p-4 m-auto'>
+      <div className='container row mt-5 shadow w-50 p-4 m-auto'>
         <h4 className='text-center'>Login</h4>
         <div className='col-md-6 m-auto'>
           <input

@@ -36,6 +36,7 @@ export let loginUser = async(req, res) => {
    let { email, password } = req.body
 
    let user = await UserModel.findOne({ email })
+   console.log(user)
 
    if (user && await user.comparePassword(password)) {
        generateToken(res, user._id)
@@ -60,7 +61,7 @@ export let logoutUser = async(req, res) => {
       sameSite: 'strict'
    })
    return res.status(200).json({
-      message: 'User logout suucessfully'
+      message: 'User logout successfully'
    })
 }
 
