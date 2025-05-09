@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { saveShippingAddress } from '../redux/slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import CheckoutSteps from '../components/CheckoutSteps';
 
 function ShippingScreen() {
  let cart = useSelector((state) => {
@@ -25,6 +26,7 @@ function ShippingScreen() {
   
   return (
     <div>
+      <CheckoutSteps step1 step2/>
       <form onSubmit={handleSubmit}>
         <div className='container row mt-5 shadow w-50 p-4 m-auto'>
           <h4 className='text-center'>Shipping Details</h4>
@@ -57,12 +59,12 @@ function ShippingScreen() {
               placeholder='country'
               className='form-control my-3'
             />
-            <button
+            <Link to= '/payment'
               type='submit'
               className='btn btn-dark my-3 w-50 d-block m-auto'
             >
               Continue
-            </button>
+            </Link>
             
           
           </div>

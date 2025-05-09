@@ -5,6 +5,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 import cookieParser from 'cookie-parser'
 dotenv.config()
 let app = express()
@@ -24,6 +25,7 @@ app.use(cookieParser())
 
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);
+app.use('/api', orderRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello server')
