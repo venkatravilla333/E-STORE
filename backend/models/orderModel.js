@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
+      ref: 'User', // <-- this must exactly match your User model name
     },
     orderItems: [
       {

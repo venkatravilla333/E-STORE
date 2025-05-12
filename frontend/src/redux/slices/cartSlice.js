@@ -36,6 +36,11 @@ let cartSlice = createSlice({
       })
        return updateCart(state)
     },
+
+    clearCartItems: (state) => {
+      state.cartItems = [];
+    },
+
     saveShippingAddress: (state, action) => {
       state.shippingAddress = action.payload
       return updateCart(state)
@@ -47,6 +52,6 @@ let cartSlice = createSlice({
      
   }
 })
- export let {addToCart, removeFromCart, saveShippingAddress, savePaymentMethod} = cartSlice.actions
+ export let {addToCart, removeFromCart, saveShippingAddress, savePaymentMethod, clearCartItems} = cartSlice.actions
 
 export default cartSlice.reducer

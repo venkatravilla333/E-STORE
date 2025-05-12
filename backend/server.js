@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
   res.send('Hello server')
 })
 
+mongoose.set('strictPopulate', false);
 
 var PORT = process.env.PORT || 5500
 
